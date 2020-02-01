@@ -9,12 +9,13 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Turret extends CommandBase {
+public class AimTurret extends CommandBase {
   /**
-   * Creates a new Turret.
+   * Creates a new TurnTurret.
    */
-  public Turret() {
+  public AimTurret(String direction, double power) {
     // Use addRequirements() here to declare subsystem dependencies.
+
   }
 
   // Called when the command is initially scheduled.
