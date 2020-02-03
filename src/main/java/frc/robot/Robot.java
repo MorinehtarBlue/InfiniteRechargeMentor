@@ -7,21 +7,14 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.OI;
+import frc.robot.Subsystems.Turret;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,15 +30,9 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static String gameData = "";
   private DriveTrain m_driveTrain = new DriveTrain();
-  public static OI m_oi = new OI();
+  private OI m_oi = new OI();
+  private Turret m_turret = new Turret();
 
-  // Thrower Motor Setup
-  public static CANSparkMax thrower1 = new CANSparkMax(11, MotorType.kBrushless);
-  public static CANSparkMax thrower2 = new CANSparkMax(12, MotorType.kBrushless);
-  public static SpeedControllerGroup thrower = new SpeedControllerGroup(thrower1, thrower2);
-
-  // Turret Aiming
-  public static WPI_TalonSRX turretPivot = new WPI_TalonSRX(8);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -56,7 +43,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    thrower2.setInverted(true);
+    m_turret.init();
   }
 
   /**
@@ -117,8 +104,10 @@ public class Robot extends TimedRobot {
     //thrower.set(m_oi.m_stick.getThrottle());
 
     // For testing the turret ring (lazy susan)
-    turretPivot.set(m_oi.m_stick.getThrottle());
+    //turretPivot.set(m_oi.m_stick.getThrottle());
     
+
+
     gameData = DriverStation.getInstance().getGameSpecificMessage();
     if(gameData.length() > 0)
     {

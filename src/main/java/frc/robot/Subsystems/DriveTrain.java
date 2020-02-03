@@ -7,17 +7,17 @@
 
 package frc.robot.Subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 public class DriveTrain extends SubsystemBase {
 
-  private final WPI_TalonSRX leftFront = new WPI_TalonSRX(5);
-  private final WPI_TalonSRX leftRear = new WPI_TalonSRX(6);
-  private final WPI_TalonSRX rightFront = new WPI_TalonSRX(10);
-  private final WPI_TalonSRX rightRear = new WPI_TalonSRX(9);
+  private final WPI_TalonFX leftFront = new WPI_TalonFX(1);
+  private final WPI_TalonFX leftRear = new WPI_TalonFX(2);
+  private final WPI_TalonFX rightFront = new WPI_TalonFX(3);
+  private final WPI_TalonFX rightRear = new WPI_TalonFX(4);
   private final MecanumDrive m_drive;
 
   /**
