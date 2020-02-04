@@ -42,6 +42,7 @@ public class Turret extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Add code here to update driver station with turret info (bearing and elevation)
+
   }
 }

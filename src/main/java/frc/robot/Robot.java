@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Subsystems.ColorWheel;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.OI;
 import frc.robot.Subsystems.Turret;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
   private DriveTrain m_driveTrain = new DriveTrain();
   private OI m_oi = new OI();
   private Turret m_turret = new Turret();
+  private ColorWheel m_colorWheel = new ColorWheel();
 
 
   /**
@@ -105,7 +107,11 @@ public class Robot extends TimedRobot {
 
     // For testing the turret ring (lazy susan)
     //turretPivot.set(m_oi.m_stick.getThrottle());
-    
+
+    // Send color data to dashboard
+    SmartDashboard.putNumber("xRed", m_colorWheel.detectedColor.red);
+    SmartDashboard.putNumber("xGreen", m_colorWheel.detectedColor.green);
+    SmartDashboard.putNumber("xBlue", m_colorWheel.detectedColor.blue);
 
 
     gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -114,16 +120,20 @@ public class Robot extends TimedRobot {
       switch (gameData.charAt(0))
       {
         case 'B' :
-          //Blue case code
+          //Blue case 
+          SmartDashboard.putString("FMS Color", "BLUE");
           break;
         case 'G' :
           //Green case code
+          SmartDashboard.putString("FMS Color", "GREEN");
           break;
         case 'R' :
           //Red case code
+          SmartDashboard.putString("FMS Color", "RED");
           break;
         case 'Y' :
           //Yellow case code
+          SmartDashboard.putString("FMS Color", "YELLOW");
           break;
         default :
           //This is corrupt data
