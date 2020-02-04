@@ -9,9 +9,9 @@ package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
@@ -28,15 +28,34 @@ public class DriveTrain extends SubsystemBase {
   public double rightFrontEncoder = 0;
   public double rightRearEncoder = 0;
 
+  // Gyro Sensor
+	public Gyro rioGyro;
   /**
    * Creates a new DriveTrain.
    */
   public DriveTrain() {
+    rioGyro = new ADXRS450_Gyro();
     m_drive = new MecanumDrive(leftFront, leftRear, rightFront, rightRear);
     m_drive.setDeadband(.05);
+    resetLeftFrontEncoder();
+    resetLeftRearEncoder();
+    resetRightFrontEncoder();
+    resetRightRearEncoder();
+  }
+
+  public void resetLeftFrontEncoder(){
     leftFront.getSensorCollection().setIntegratedSensorPosition(0, 2);
+  }
+
+  public void resetLeftRearEncoder(){
     leftRear.getSensorCollection().setIntegratedSensorPosition(0, 2);
+  }
+
+  public void resetRightFrontEncoder(){
     rightFront.getSensorCollection().setIntegratedSensorPosition(0, 2);
+  }
+
+  public void resetRightRearEncoder(){
     rightRear.getSensorCollection().setIntegratedSensorPosition(0, 2);
   }
 

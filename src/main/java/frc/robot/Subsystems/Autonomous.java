@@ -98,30 +98,28 @@ public class Autonomous extends SubsystemBase {
 	}    
 
     protected boolean gyroTurn(double targetAngle) {
-		Robot.rm.rioGyro.reset();
+		a_drive.rioGyro.reset();
 		while ((RobotState.isAutonomous() == true) && (Math.abs(readGyro()) < Math.abs(targetAngle)) && (Math.abs(calcP(targetAngle)) > 0.25)) {
-			Robot.m_drive.driveCartesian(0, 0, calcP(targetAngle));//(0, calcP(targetAngle));
+			a_drive.driveByStick(0, 0, calcP(targetAngle));//(0, calcP(targetAngle));
 		}
 		stop();	
 		return true;
 	}
     
 	protected boolean gyroDrive(double distance) {
-		Robot.rm.rioGyro.reset();
-		Robot.rm.encoderLRear.reset();
-		Robot.rm.encoderRRear.reset();
-		startPosition = ((Robot.rm.encoderLRear.get() + Robot.rm.encoderRRear.get()) / 2) ;
-		double targetPosition = (distance / circumferenceInInches * pulsesPerRotation);
+    a_drive.rioGyro.reset();
+    a_drive.resetLeftRearEncoder();
+    a_drive.resetRightRearEncoder();
+		startPosition = ((a_drive.leftRearEncoder + a_drive.rightRearEncoder) / 2) ;
+		//double targetPosition = (distance / circumferenceInInches * pulsesPerRotation);
 		while (hasDrivenFarEnough(startPosition, distance) == false) {
-			SmartDashboard.putNumber("Left Encoder Count", Robot.rm.encoderLRear.get());
-	    	SmartDashboard.putNumber("Right Encoder Count", Robot.rm.encoderRRear.get());
 			double drift = readGyro() / 10;
 			if (distance > 0) {
-				Robot.m_drive.driveCartesian(0, AUTO_DRIVE_POWER, -drift);  // FORWARD
+				a_drive.driveByStick(0, AUTO_DRIVE_POWER, -drift);  // FORWARD
 			}
 			
 			else {
-				Robot.m_drive.driveCartesian(0, -AUTO_DRIVE_POWER, -drift);  // REVERSE
+				a_drive.driveByStick(0, -AUTO_DRIVE_POWER, -drift);  // REVERSE
 			}
 			
 			//System.out.println("Gyro Heading: " + drift);
@@ -132,21 +130,19 @@ public class Autonomous extends SubsystemBase {
 	}
 	
 	protected boolean strafeDrive(double distance) {
-		Robot.rm.rioGyro.reset();
-		Robot.rm.encoderLRear.reset();
-		Robot.rm.encoderRRear.reset();
+		a_drive.rioGyro.reset();
+    a_drive.resetLeftRearEncoder();
+    a_drive.resetRightRearEncoder();
 		//startPosition = ((Robot.rm.lift.getSensorCollection().getQuadraturePosition() + Robot.rm.climb.getSensorCollection().getQuadraturePosition()) / 2) ;
-		startPosition = ((Robot.rm.encoderLRear.get() + Robot.rm.encoderRRear.get()) / 2);
+		startPosition = ((a_drive.leftRearEncoder + a_drive.rightRearEncoder) / 2);
 		while (strafeFarEnough(startPosition, distance) == false) {
-	    	SmartDashboard.putNumber("Left Encoder Count", Robot.rm.encoderLRear.get());
-	    	SmartDashboard.putNumber("Right Encoder Count", Robot.rm.encoderRRear.get());
 			double drift = readGyro() / 10;
 			if (distance > 0) {
-				Robot.m_drive.driveCartesian(0.65, 0, -drift);  // RIGHT
+				a_drive.driveByStick(0.65, 0, -drift);  // RIGHT
 			}
 			
 			else {
-				Robot.m_drive.driveCartesian(-0.65, 0, -drift);  // LEFT
+				a_drive.driveByStick(-0.65, 0, -drift);  // LEFT
 			}
 			
 			//System.out.println("Gyro Heading: " + drift);
@@ -272,7 +268,7 @@ public class Autonomous extends SubsystemBase {
 	//--------------------------------------
 
 	protected double readGyro() {
-		double angle = Robot.rm.rioGyro.getAngle();
+		double angle = a_drive.rioGyro.getAngle();
 		return angle;
 	}
 	
@@ -290,7 +286,7 @@ public class Autonomous extends SubsystemBase {
 	
 	public void stop() {
 
-		Robot.m_drive.driveCartesian(0, -.1, 0);
+		a_drive.driveByStick(0, 0, 0);
     	//taskDone = true;
     	
     }

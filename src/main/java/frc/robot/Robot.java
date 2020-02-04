@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Subsystems.ColorWheel;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.OI;
@@ -34,7 +33,6 @@ public class Robot extends TimedRobot {
   private OI m_oi = new OI();
   private Turret m_turret = new Turret();
   private ColorWheel m_colorWheel = new ColorWheel();
-
 
   /**
    * This function is run when the robot is first started up and should be
