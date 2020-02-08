@@ -5,12 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Subsystems;
+package frc.robot.subsystems;
 
 import java.lang.module.ModuleDescriptor.Requires;
 
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 
 public class Autonomous extends SubsystemBase {
@@ -18,8 +19,8 @@ public class Autonomous extends SubsystemBase {
  * @author USX27182
  *
  */
-  Requires Robot; //.m_drive;
-
+	//Requires Robot;
+  
 	double circumferenceInInches = 25.0;
 	int pulsesPerRotation = 21934;
 	double distanceToTravel = 0;
@@ -31,7 +32,7 @@ public class Autonomous extends SubsystemBase {
 	double drivePower = 0;
 	double AUTO_DRIVE_POWER = 0.5;
 
-  private DriveTrain a_drive = new DriveTrain();
+  	private DriveTrain a_drive = Robot.m_driveTrain;
 	
 	public Autonomous() {
   

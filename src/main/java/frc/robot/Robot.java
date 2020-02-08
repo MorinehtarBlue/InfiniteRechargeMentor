@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Subsystems.ColorWheel;
-import frc.robot.Subsystems.DriveTrain;
-import frc.robot.Subsystems.OI;
-import frc.robot.Subsystems.Turret;
+import frc.robot.subsystems.Autonomous;
+import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.OI;
+import frc.robot.subsystems.Turret;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,10 +30,11 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static String gameData = "";
-  private DriveTrain m_driveTrain = new DriveTrain();
+  public static DriveTrain m_driveTrain = new DriveTrain();
   private OI m_oi = new OI();
   private Turret m_turret = new Turret();
   private ColorWheel m_colorWheel = new ColorWheel();
+  private Autonomous m_autosys = new Autonomous();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -43,7 +45,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    m_turret.init();
+    //m_turret.init();
+  
   }
 
   /**
@@ -101,7 +104,7 @@ public class Robot extends TimedRobot {
     m_driveTrain.driveByStick(Math.pow(m_oi.m_stick.getX(), 3), Math.pow(-m_oi.m_stick.getY(), 3), m_oi.m_stick.getZ()*.75);
 
     // For testing the thrower
-    //thrower.set(m_oi.m_stick.getThrottle());
+    m_turret.turretElevate.set(m_oi.m_stick.getThrottle());
 
     // For testing the turret ring (lazy susan)
     //turretPivot.set(m_oi.m_stick.getThrottle());

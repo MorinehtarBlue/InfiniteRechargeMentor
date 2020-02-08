@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Subsystems;
+package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
@@ -17,15 +17,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Turret extends SubsystemBase {
 
   // Turret Aiming System
-  public static WPI_TalonSRX turretPivot = new WPI_TalonSRX(8);
-  public static CANSparkMax turretElevate = new CANSparkMax(13, MotorType.kBrushless);
+  public WPI_TalonSRX turretPivot = new WPI_TalonSRX(8);
+  public CANSparkMax turretElevate = new CANSparkMax(11, MotorType.kBrushless);
   private final double kMaxPivotPower = .75;
   private final double kMaxElevatePower = .5;
 
   // Turret Firing System
-  public static CANSparkMax thrower1 = new CANSparkMax(11, MotorType.kBrushless);
+  public static CANSparkMax thrower1 = new CANSparkMax(13, MotorType.kBrushless);
   public static CANSparkMax thrower2 = new CANSparkMax(12, MotorType.kBrushless);
-  public static SpeedControllerGroup thrower = new SpeedControllerGroup(thrower1, thrower2);
+  public SpeedControllerGroup thrower = new SpeedControllerGroup(thrower1, thrower2);
   private final double kMaxThrowerPower = .75;
 
 
